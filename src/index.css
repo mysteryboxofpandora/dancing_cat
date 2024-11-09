@@ -17,6 +17,11 @@ body {
   }
 }
 
+/*I added*/
+.spread-gradient {
+  background-image: linear-gradient(#bd2222, #1a5ad7);
+}
+
 .bg-gradient-main {
   background: linear-gradient(to top, #fba007, #ffc630);
 }
