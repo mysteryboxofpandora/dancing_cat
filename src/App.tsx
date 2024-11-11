@@ -6,34 +6,88 @@ import useSound from 'use-sound';
 
 
 const App = () => {
-  const [balance, setBalance] = useState(10);   
+  const [balance, setBalance] = useState(12);
+  const [flag, setFlag] = useState(1);
+
   const clickCost = 0.1;   
+  const changeFlag = 1;
   
 
-  const chose = [CAT_static, CAT];
-  const music = [song1, song2, song3, song4, song5, song6, song7, song8,  song9,  song10];
+  //const chose = [CAT_static, CAT];
+  //const music = [song1, song2, song3, song4, song5, song6, song7, song8,  song9,  song10];
   const [track, setTrack] = useState(Math.floor(Math.random() * 10));
   
   
   const [isPlaying, setIsPlaying] = useState(false);
-  const [playBoop] = useSound(music[track], {    //, {pause}
+  const [playBoop1] = useSound(song1, {    //, {pause}
     onplay: () => setIsPlaying(true),
     onend: () => setIsPlaying(false),    
   });
+  const [playBoop2] = useSound(song2, {    //, {pause}
+    onplay: () => setIsPlaying(true),
+    onend: () => setIsPlaying(false),    
+  });
+  const [playBoop3] = useSound(song3, {    //, {pause}
+    onplay: () => setIsPlaying(true),
+    onend: () => setIsPlaying(false),    
+  });
+  const [playBoop4] = useSound(song4, {    //, {pause}
+    onplay: () => setIsPlaying(true),
+    onend: () => setIsPlaying(false),    
+  });
+  const [playBoop5] = useSound(song5, {    //, {pause}
+    onplay: () => setIsPlaying(true),
+    onend: () => setIsPlaying(false),    
+  });
+  const [playBoop6] = useSound(song6, {    //, {pause}
+    onplay: () => setIsPlaying(true),
+    onend: () => setIsPlaying(false),    
+  });
+  const [playBoop7] = useSound(song7, {    //, {pause}
+    onplay: () => setIsPlaying(true),
+    onend: () => setIsPlaying(false),    
+  });
+  const [playBoop8] = useSound(song8, {    //, {pause}
+    onplay: () => setIsPlaying(true),
+    onend: () => setIsPlaying(false),    
+  });
+  const [playBoop9] = useSound(song9, {    //, {pause}
+    onplay: () => setIsPlaying(true),
+    onend: () => setIsPlaying(false),    
+  });
+  const [playBoop10] = useSound(song10, {    //, {pause}
+    onplay: () => setIsPlaying(true),
+    onend: () => setIsPlaying(false),    
+  });
+
+  
   
 
   
   const handleClick2 = () => {
     
     setTrack(Math.floor(Math.random() * 10));
-    
+    setFlag(flag + changeFlag);
+
   }
 
   function handleClick() {
 
-    if (!isPlaying) {      
+    if (!isPlaying && flag) {            
       setBalance(balance - clickCost);
-      playBoop();
+      setFlag(flag - changeFlag);
+      switch (track) {
+        case 0: playBoop1(); break;
+        case 1: playBoop2(); break;
+        case 2: playBoop3(); break;
+        case 3: playBoop4(); break;
+        case 4: playBoop5(); break;
+        case 5: playBoop6(); break;
+        case 6: playBoop7(); break;
+        case 7: playBoop8(); break;
+        case 8: playBoop9(); break;
+        case 9: playBoop10(); break;
+      }      
     }
 
     setTimeout(handleClick2, 12000);
@@ -49,7 +103,7 @@ const App = () => {
 
       
       <div className="flex-grow flex items-center justify-center">      
-        <img src={chose[isPlaying === true ? 1 : 0]} width={400} height={400} alt="CAT" />    
+        <img src={isPlaying === true ? CAT : CAT_static} width={400} height={400} alt="CAT" />    
       </div>
 
       
