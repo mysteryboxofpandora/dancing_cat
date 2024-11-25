@@ -1,20 +1,38 @@
 import { useState } from 'react';
+import React from "react";
 import './index.css';
 import {TON, CAT, CAT_static } from './images';
 import {song1, song2, song3, song4, song5, song6, song7, song8,  song9,  song10 } from './tracks';
 import useSound from 'use-sound';
+import Modal from './Modal';
+import './Modal.css';
 
 
-const App = () => {
-  const [balance, setBalance] = useState(12);
-  const [flag, setFlag] = useState(1);
 
-  const clickCost = 0.1;   
-  const changeFlag = 1;
+
+
+const App: React.FC = () => {
+  
+  const [balance, setBalance] = useState<number>(0);
+  
+  const [flag, setFlag] = useState<boolean>(true);
+
+  const clickCost = 0.1; 
+    
+  const [isModalOpen, setModalOpen] = useState(false);
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  }
+  const newBalanceIs = (value: number) => {
+    setBalance(value);
+  }
+  
+  
   
 
-  //const chose = [CAT_static, CAT];
-  //const music = [song1, song2, song3, song4, song5, song6, song7, song8,  song9,  song10];
   const [track, setTrack] = useState(Math.floor(Math.random() * 10));
   
   
@@ -67,15 +85,15 @@ const App = () => {
   const handleClick2 = () => {
     
     setTrack(Math.floor(Math.random() * 10));
-    setFlag(flag + changeFlag);
+    setFlag(true);   
 
   }
 
-  function handleClick() {
-
-    if (!isPlaying && flag) {            
-      setBalance(balance - clickCost);
-      setFlag(flag - changeFlag);
+  const handleClick = () => {
+        
+    if (!isPlaying && flag && (balance >= clickCost)) {            
+      setBalance((balance*10000000 - clickCost*10000000)/10000000);       
+      setFlag(false);
       switch (track) {
         case 0: playBoop1(); break;
         case 1: playBoop2(); break;
@@ -91,16 +109,20 @@ const App = () => {
     }
 
     setTimeout(handleClick2, 12000);
-
   }   
-
+  
   return (    
     <div className="bg-[#000000] min-h-screen px-4 flex flex-col items-center text-white font-medium">
-      <div className="fixed top-0 mt-12 text-5xl font-bold flex items-center">
+      <div className="fixed top-0 mt-4 text-3xl font-bold flex items-center">
           <img src={TON} width={44} height={44} />
-          <span >{balance.toLocaleString()}</span>
+          <span >{balance}</span>
       </div>
-
+      <button className='bg-[#bd2222] rounded-full fixed top-10 mt-8 text-xl px-5 py-0'
+      onClick={openModal}
+      >top up your balance</button> 
+      <Modal isOpen={isModalOpen} onClose={closeModal} refresh={newBalanceIs} balanceModal={balance} />
+      
+     
       
       <div className="flex-grow flex items-center justify-center">      
         <img src={isPlaying === true ? CAT : CAT_static} width={400} height={400} alt="CAT" />    

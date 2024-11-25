@@ -5,5 +5,5 @@ import CAT_static from "./this_is_cat_static.png";
 export {    
     TON,
     CAT,
-    CAT_static
+    CAT_static    
 }
